@@ -12,6 +12,8 @@ namespace MatchThree
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Tile tile;
+
         public Match()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -27,6 +29,8 @@ namespace MatchThree
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            tile = new Tile();
 
             base.Initialize();
         }
@@ -76,6 +80,10 @@ namespace MatchThree
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(Content.Load<Texture2D>(tile._TexturePath),tile.Position,null,tile.Color,0,tile.Origin, tile.Scale, SpriteEffects.None, tile.Layer);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
