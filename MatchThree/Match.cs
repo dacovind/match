@@ -28,6 +28,8 @@ namespace MatchThree
         /// </summary>
         protected override void Initialize()
         {
+            IsMouseVisible = true;
+
             // TODO: Add your initialization logic here
 
             tile = new Tile();
@@ -45,6 +47,7 @@ namespace MatchThree
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            tile.LoadContent(Content);     
         }
 
         /// <summary>
@@ -68,6 +71,10 @@ namespace MatchThree
 
             // TODO: Add your update logic here
 
+            tile.Update(gameTime);
+
+
+
             base.Update(gameTime);
         }
 
@@ -82,7 +89,7 @@ namespace MatchThree
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
-            spriteBatch.Draw(Content.Load<Texture2D>(tile._TexturePath),tile.Position,null,tile.Color,0,tile.Origin, tile.Scale, SpriteEffects.None, tile.Layer);
+            spriteBatch.Draw(tile.Texture, tile.Position, null, tile.Color, 0, tile.Origin, tile.Scale, SpriteEffects.None, tile.Layer);
             spriteBatch.End();
 
             base.Draw(gameTime);
