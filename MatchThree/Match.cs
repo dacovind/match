@@ -32,7 +32,7 @@ namespace MatchThree
 
             // TODO: Add your initialization logic here
 
-            tile = new Tile();
+            tile = new Tile(new Vector2(100));
 
             base.Initialize();
         }

@@ -2,8 +2,6 @@
 using MatchThree;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MatchThreeTests
 {
@@ -15,7 +13,6 @@ namespace MatchThreeTests
         string tileTexturePath;
         Point tileTextureSize;
         Vector2 tilePosition;
-        Vector2 tileOrigin;
         Vector2 tileScale;
         Color tileColor;
         float tileLayer;
@@ -35,7 +32,6 @@ namespace MatchThreeTests
             tileTexturePath = "Tiles/tileTest";
             tileTextureSize = new Point(100);
             tilePosition = Vector2.Zero;
-            tileOrigin = Vector2.Zero;
             tileScale = Vector2.One;
             tileColor = Color.White;
             tileLayer = 1F;
@@ -45,7 +41,6 @@ namespace MatchThreeTests
             Assert.AreEqual(tileTexturePath, tile._TexturePath);
             Assert.AreEqual(tileTextureSize, tile.TextureSize);
             Assert.AreEqual(tilePosition, tile.Position);
-            Assert.AreEqual(tileOrigin, tile.Origin);
             Assert.AreEqual(tileScale, tile.Scale);
             Assert.AreEqual(tileColor, tile.Color);
             Assert.AreEqual(tileLayer, tile.Layer);
