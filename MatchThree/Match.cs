@@ -13,6 +13,7 @@ namespace MatchThree
         SpriteBatch spriteBatch;
 
         Tile tile;
+        Board board;
 
         public Match()
         {
@@ -32,6 +33,7 @@ namespace MatchThree
 
             // TODO: Add your initialization logic here
 
+            board = new Board();
             tile = new Tile(new Vector2(100));
 
             base.Initialize();
@@ -47,6 +49,7 @@ namespace MatchThree
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            board.LoadContent(Content);
             tile.LoadContent(Content);     
         }
 
@@ -89,6 +92,7 @@ namespace MatchThree
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
+            spriteBatch.Draw(board.Texture, board.Position, null, board.Color, 0, board.Origin, board.Scale, SpriteEffects.None, board.Layer);
             spriteBatch.Draw(tile.Texture, tile.Position, null, tile.Color, 0, tile.Origin, tile.Scale, SpriteEffects.None, tile.Layer);
             spriteBatch.End();
 

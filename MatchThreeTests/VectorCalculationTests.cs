@@ -8,6 +8,24 @@ namespace MatchThreeTests
     [TestClass]
     public class VectorCalculationTests
     {
+        Tile tile;
+
+
+        [TestInitialize]
+        public void Initialise()
+        {
+            tile = new Tile(new Vector2(100F));
+        }
+
+        [TestMethod]
+        public void GetSizeOfTile()
+        {
+            Vector2 expectedSize = new Vector2(100F);
+
+            Assert.AreEqual(expectedSize, tile.Size);
+        }
+
+
         [TestMethod]
         public void GetMiddleOfTile()
         {

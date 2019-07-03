@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,6 +22,10 @@ namespace MatchThree
         public Vector2 TruePosition { get => new Vector2(Position.X - Origin.X, Position.Y - Origin.Y); }
         public bool IsMoving { get; private set; }
 
+
+        /// <summary>
+        /// Create a tile.
+        /// </summary>
         public Tile()
         {
             _TexturePath = "Tiles/tileTest";
@@ -33,6 +36,10 @@ namespace MatchThree
             Layer = 1F;
         }
 
+        /// <summary>
+        /// Create a tile at the given position.
+        /// </summary>
+        /// <param name="aPosition"></param>
         public Tile(Vector2 aPosition)
         {
             _TexturePath = "Tiles/tileTest";
