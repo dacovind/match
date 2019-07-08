@@ -8,13 +8,14 @@ namespace MatchThreeTests
     [TestClass]
     public class VectorCalculationTests
     {
+
         Tile tile;
 
 
         [TestInitialize]
         public void Initialise()
         {
-            tile = new Tile(new Vector2(100F));
+            tile = new Tile(new Board(), new ObjectSprite(), new Vector2(100F), 0F );
         }
 
         [TestMethod]

@@ -6,47 +6,33 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MatchThree
 {
-    public class Tile
+    public class Tile : GameObject
     {
-        public Texture2D Texture { get; private set; }
+        public Board PlayingBoard { get; }
 
-        public string _TexturePath { get; private set; }
-        public Point TextureSize { get; set; }
-        public Vector2 Position { get; set; }
-        public Vector2 Scale { get; set; }
-        public Color Color { get; set; }
-        public float Layer { get; set; }
+        public ObjectSprite Sprite { get; private set; }
 
-        public Vector2 Size { get => new Vector2(TextureSize.X * Scale.X, TextureSize.Y * Scale.Y); }
-        public Vector2 Origin { get => new Vector2(Size.X / 2, Size.Y / 2); }
-        public Vector2 TruePosition { get => new Vector2(Position.X - Origin.X, Position.Y - Origin.Y); }
+        public override Vector2 Size { get => new Vector2(Sprite.TextureSize.X * Scale.X, Sprite.TextureSize.Y * Scale.Y); }
+        public override Vector2 Origin { get => new Vector2(Size.X / 2, Size.Y / 2); }
+
         public bool IsMoving { get; private set; }
 
 
-        /// <summary>
-        /// Create a tile.
-        /// </summary>
         public Tile()
         {
-            _TexturePath = "Tiles/tileTest";
-            TextureSize = new Point(100);
+            PlayingBoard = new Board();
+
+            Sprite = new ObjectSprite();
+
             Position = Vector2.Zero;
-            Scale = Vector2.One;
-            Color = Color.White;
-            Layer = 1F;
+            Layer = 0F;
         }
 
-        /// <summary>
-        /// Create a tile at the given position.
-        /// </summary>
-        /// <param name="aPosition"></param>
-        public Tile(Vector2 aPosition)
+        public Tile(Board aBoard, ObjectSprite aSprite, Vector2 aPosition, float aLayer)
         {
-            _TexturePath = "Tiles/tileTest";
-            TextureSize = new Point(100);
+            PlayingBoard = aBoard;
+            Sprite = aSprite;
             Position = aPosition;
-            Scale = Vector2.One;
-            Color = Color.White;
             Layer = 1F;
         }
 
@@ -62,12 +48,12 @@ namespace MatchThree
             Position = aPosition;
         }
 
-        public void LoadContent(ContentManager aContentManager)
+        public override void LoadContent(ContentManager aContentManager)
         {
-            Texture = aContentManager.Load<Texture2D>(_TexturePath);
+            Sprite.SetTexture(aContentManager);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             MouseState state = Mouse.GetState();
 

@@ -25,6 +25,42 @@
 /processorParam:TextureFormat=Color
 /build:../../../MatchThreeContent/Boards/BoardTest.png;Boards/BoardTest.png
 
+#begin ../../../MatchThreeContent/Tests/SpriteTestOne.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../MatchThreeContent/Tests/SpriteTestOne.png;Tests/SpriteTestOne.png
+
+#begin ../../../MatchThreeContent/Tests/SpriteTestThree.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../MatchThreeContent/Tests/SpriteTestThree.png;Tests/SpriteTestThree.png
+
+#begin ../../../MatchThreeContent/Tests/SpriteTestTwo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../MatchThreeContent/Tests/SpriteTestTwo.png;Tests/SpriteTestTwo.png
+
 #begin ../../../MatchThreeContent/Tiles/tileTest.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -35,5 +71,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../../../MatchThreeContent/Tiles/tileTest.png;Tiles/tileTest.png
+/build:../../../MatchThreeContent/Tiles/tileTest.png;Tiles/TileTest.png
 

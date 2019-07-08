@@ -11,7 +11,7 @@ namespace MatchThreeTests
         [TestMethod]
         public void MouseDragTile()
         {
-            Tile tile = new Tile(new Vector2(100F));
+            Tile tile = new Tile();
 
             Vector2 expectedPosition = new Vector2(150F);
 

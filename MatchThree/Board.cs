@@ -10,32 +10,36 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MatchThree
 {
-    class Board
+    public class Board : GameObject
     {
-        public Texture2D Texture { get; private set; }
+        public ObjectSprite Sprite { get; private set; }
+        public override Vector2 Size { get => new Vector2(Sprite.TextureSize.X * Scale.X, Sprite.TextureSize.Y * Scale.Y); }
 
-        public string _TexturePath { get; private set; }
-        public Point TextureSize { get; set; }
-        public Vector2 Position { get; set; }
-        public Vector2 Scale { get; set; }
-        public Color Color { get; set; }
-        public float Layer { get; set; }
+        public Point SquarePer { get; private set; }
 
-        public Vector2 Origin { get => Vector2.Zero; }
+        public Vector2 SquareSize { get => new Vector2(Size.X / SquarePer.X, Size.Y / SquarePer.Y); }
 
         public Board()
         {
-            _TexturePath = "Boards/boardTest";
-            TextureSize = new Point(100);
+            Sprite = new ObjectSprite();
+
             Position = Vector2.Zero;
-            Scale = Vector2.One;
-            Color = Color.White;
-            Layer = 1F;
+            Layer = 0F;
+            SquarePer = new Point(10);
         }
 
-        public void LoadContent(ContentManager aContentManager)
+        public Board(ObjectSprite aSprite, Vector2 aPosition, float aLayer, Point aSquarePer)
         {
-            Texture = aContentManager.Load<Texture2D>(_TexturePath);
+            Sprite = aSprite;
+
+            Position = aPosition;
+            Layer = aLayer;
+            SquarePer = aSquarePer;
+        }
+
+        public override void LoadContent(ContentManager aContentManager)
+        {
+            Sprite.SetTexture(aContentManager);
         }
     }
 }

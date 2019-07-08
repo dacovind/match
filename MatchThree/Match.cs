@@ -14,6 +14,8 @@ namespace MatchThree
 
         Tile tile;
         Board board;
+        ObjectSprite boardSprite;
+        ObjectSprite tileSprite;
 
         public Match()
         {
@@ -33,8 +35,11 @@ namespace MatchThree
 
             // TODO: Add your initialization logic here
 
-            board = new Board();
-            tile = new Tile(new Vector2(100));
+            boardSprite = new ObjectSprite("Boards/BoardTest", new Point(300));
+            tileSprite = new ObjectSprite("Tiles/TileTest", new Point(100));
+
+            board = new Board(boardSprite, new Vector2(50), 1F, new Point(6));
+            tile = new Tile(board, tileSprite, new Vector2(100), 2F);
 
             base.Initialize();
         }
@@ -92,8 +97,8 @@ namespace MatchThree
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
-            spriteBatch.Draw(board.Texture, board.Position, null, board.Color, 0, board.Origin, board.Scale, SpriteEffects.None, board.Layer);
-            spriteBatch.Draw(tile.Texture, tile.Position, null, tile.Color, 0, tile.Origin, tile.Scale, SpriteEffects.None, tile.Layer);
+            spriteBatch.Draw(board.Sprite.Texture, board.Position, null, board.Sprite.TextureColor, 0, board.Origin, board.Scale, SpriteEffects.None, board.Layer);
+            spriteBatch.Draw(tile.Sprite.Texture, tile.Position, null, tile.Sprite.TextureColor, 0, tile.Origin, tile.Scale, SpriteEffects.None, tile.Layer);
             spriteBatch.End();
 
             base.Draw(gameTime);

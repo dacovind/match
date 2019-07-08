@@ -23,7 +23,7 @@ namespace MatchThreeTests
         [TestMethod]
         public void ClickTile()
         {
-            mousePosition = new Point(50, 50);
+            mousePosition = new Point(10);
             mouseLeftButtonState = ButtonState.Pressed;
 
             tile = new Tile();
