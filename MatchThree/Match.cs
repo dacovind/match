@@ -35,11 +35,11 @@ namespace MatchThree
 
             // TODO: Add your initialization logic here
 
-            boardSprite = new ObjectSprite("Boards/BoardTest", new Point(300));
-            tileSprite = new ObjectSprite("Tiles/TileTest", new Point(100));
+            boardSprite = new ObjectSprite("Tests/BoardTest", new Point(300));
+            tileSprite = new ObjectSprite("Tests/TileTest", new Point(100));
 
             board = new Board(boardSprite, new Vector2(50), 1F, new Point(6));
-            tile = new Tile(board, tileSprite, new Vector2(100), 2F);
+            tile = new Tile(board, tileSprite, new Vector2(100), 0F);
 
             base.Initialize();
         }

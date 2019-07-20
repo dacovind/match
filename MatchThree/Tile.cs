@@ -33,7 +33,7 @@ namespace MatchThree
             PlayingBoard = aBoard;
             Sprite = aSprite;
             Position = aPosition;
-            Layer = 1F;
+            Layer = aLayer;
         }
 
         public bool IsLeftClicked(Point aMousePosition, ButtonState aMouseLeftButtonState)
@@ -45,7 +45,35 @@ namespace MatchThree
 
         public void MoveToPosition(Vector2 aPosition)
         {
-            Position = aPosition;
+            Vector2 newPosition = aPosition;
+
+            if (aPosition.X < PlayingBoard.Position.X)
+            {
+                newPosition.X = PlayingBoard.Position.X;
+            }
+            else if (aPosition.X >= PlayingBoard.Position.X + PlayingBoard.Size.X)
+            {
+                newPosition.X = PlayingBoard.Position.X + PlayingBoard.Size.X - 1;
+            }
+            else
+            {
+                newPosition.X = aPosition.X;
+            }
+
+            if (aPosition.Y < PlayingBoard.Position.Y)
+            {
+                newPosition.Y = PlayingBoard.Position.Y;
+            }
+            else if (aPosition.Y >= PlayingBoard.Position.Y + PlayingBoard.Size.Y)
+            {
+                newPosition.Y = PlayingBoard.Position.Y + PlayingBoard.Size.Y - 1;
+            }
+            else
+            {
+                newPosition.Y = aPosition.Y;
+            }
+
+            Position = newPosition;
         }
 
         public override void LoadContent(ContentManager aContentManager)

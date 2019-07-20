@@ -8,9 +8,23 @@ using System.Threading.Tasks;
 
 namespace MatchThree
 {
-    public class GameObject
+    public abstract class GameObject
     {
-        public Vector2 Position { get; set; }
+        private Vector2 position;
+
+
+        public Vector2 Position
+        {
+            get
+            {
+                return position;
+            }
+            set
+            {
+                position.X = value.X;
+                position.Y = value.Y;
+            }
+        }
         public float Layer { get; set; }
 
         public virtual Vector2 Scale { get => Vector2.One; }
