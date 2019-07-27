@@ -8,73 +8,101 @@ namespace MatchThree
 {
     public class Tile : GameObject
     {
-        public Board PlayingBoard { get; }
-
         public ObjectSprite Sprite { get; private set; }
 
-        public override Vector2 Size { get => new Vector2(Sprite.TextureSize.X * Scale.X, Sprite.TextureSize.Y * Scale.Y); }
-        public override Vector2 Origin { get => new Vector2(Size.X / 2, Size.Y / 2); }
+        public override float Width { get => Sprite.Width * Scale.X; }
+        public override float Height { get => Sprite.Height * Scale.Y; }
+        public override Vector2 Origin { get => new Vector2(Width / 2, Height / 2); }
+
+        public Point CasePosition { get; private set; }
+
+        public Board ActiveBoard { get; }
 
         public bool IsMoving { get; private set; }
 
 
         public Tile()
         {
-            PlayingBoard = new Board();
-
             Sprite = new ObjectSprite();
 
             Position = Vector2.Zero;
             Layer = 0F;
+
+            CasePosition = Point.Zero;
+
+            ActiveBoard = new Board();
         }
 
-        public Tile(Board aBoard, ObjectSprite aSprite, Vector2 aPosition, float aLayer)
+        public Tile(ObjectSprite sprite, Vector2 position, float layer, Point casePosition, Board board)
         {
-            PlayingBoard = aBoard;
-            Sprite = aSprite;
-            Position = aPosition;
-            Layer = aLayer;
+            Sprite = sprite;
+
+            Position = position;
+            Layer = layer;
+
+            CasePosition = casePosition;
+
+            ActiveBoard = board;
         }
 
-        public bool IsLeftClicked(Point aMousePosition, ButtonState aMouseLeftButtonState)
+        public Tile(ObjectSprite sprite, float layer, Point casePosition, Board board)
         {
-            return (aMouseLeftButtonState == ButtonState.Pressed) &&
-                   (aMousePosition.X >= TruePosition.X && aMousePosition.X < TruePosition.X + Size.X) &&
-                   (aMousePosition.Y >= TruePosition.Y && aMousePosition.Y < TruePosition.Y + Size.Y);
+            Sprite = sprite;
+
+            Layer = layer;
+
+            CasePosition = casePosition;
+
+            ActiveBoard = board;
+
+            Position = new Vector2(ActiveBoard.Position.X + (ActiveBoard.CaseWidth  * CasePosition.X) + Origin.X,
+                                   ActiveBoard.Position.Y + (ActiveBoard.CaseHeight * CasePosition.Y) + Origin.Y);
         }
 
-        public void MoveToPosition(Vector2 aPosition)
-        {
-            Vector2 newPosition = aPosition;
 
-            if (aPosition.X < PlayingBoard.Position.X)
+        public bool IsLeftClicked(Point mousePosition, ButtonState mouseLeftButtonState)
+        {
+            return (mouseLeftButtonState == ButtonState.Pressed) &&
+                   (mousePosition.X >= TruePosition.X && mousePosition.X < TruePosition.X + Width) &&
+                   (mousePosition.Y >= TruePosition.Y && mousePosition.Y < TruePosition.Y + Height);
+        }
+
+        public void MoveToPosition(Vector2 position)
+        {
+            Vector2 newPosition = position;
+
+            if (position.X < ActiveBoard.Position.X)
             {
-                newPosition.X = PlayingBoard.Position.X;
+                newPosition.X = ActiveBoard.Position.X;
             }
-            else if (aPosition.X >= PlayingBoard.Position.X + PlayingBoard.Size.X)
+            else if (position.X >= ActiveBoard.Position.X + ActiveBoard.Width)
             {
-                newPosition.X = PlayingBoard.Position.X + PlayingBoard.Size.X - 1;
+                newPosition.X = ActiveBoard.Position.X + ActiveBoard.Width - 1;
             }
             else
             {
-                newPosition.X = aPosition.X;
+                newPosition.X = position.X;
             }
 
-            if (aPosition.Y < PlayingBoard.Position.Y)
+            if (position.Y < ActiveBoard.Position.Y)
             {
-                newPosition.Y = PlayingBoard.Position.Y;
+                newPosition.Y = ActiveBoard.Position.Y;
             }
-            else if (aPosition.Y >= PlayingBoard.Position.Y + PlayingBoard.Size.Y)
+            else if (position.Y >= ActiveBoard.Position.Y + ActiveBoard.Height)
             {
-                newPosition.Y = PlayingBoard.Position.Y + PlayingBoard.Size.Y - 1;
+                newPosition.Y = ActiveBoard.Position.Y + ActiveBoard.Height - 1;
             }
             else
             {
-                newPosition.Y = aPosition.Y;
+                newPosition.Y = position.Y;
             }
 
             Position = newPosition;
         }
+
+
+
+
 
         public override void LoadContent(ContentManager aContentManager)
         {

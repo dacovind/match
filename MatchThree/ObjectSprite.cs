@@ -13,35 +13,45 @@ namespace MatchThree
     {
         public Texture2D Texture { get; private set; }
 
-        public string _TexturePath { get; private set; }
-        public Point TextureSize { get; private set; }
-        public Color TextureColor { get; private set; }
+        public string _Path { get; private set; }
 
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+
+        public Color Tint { get; private set; }
 
         public ObjectSprite()
         {
-            _TexturePath = "Tests/SpriteTestOne";
-            TextureSize = new Point(100);
-            TextureColor = Color.White;
+            _Path = "Tests/SpriteTestOne";
+            Tint = Color.White;
+
+            Width = 100;
+            Height = 100;
         }
 
-        public ObjectSprite(string aTexturePath, Point aTextureSize)
+        public ObjectSprite(string path, int width, int height)
         {
-            _TexturePath = aTexturePath;
-            TextureSize = aTextureSize;
-            TextureColor = Color.White;
+            _Path = path;
+
+            Width = width;
+            Height = height;
+
+            Tint = Color.White;
         }
 
-        public ObjectSprite(string aTexturePath, Point aTextureSize, Color aTextureColor)
+        public ObjectSprite(string path, int width, int height, Color tint)
         {
-            _TexturePath = aTexturePath;
-            TextureSize = aTextureSize;
-            TextureColor = aTextureColor;
+            _Path = path;
+
+            Width = width;
+            Height = height;
+
+            Tint = tint;
         }
 
         public void SetTexture(ContentManager aContentManager)
         {
-            Texture = aContentManager.Load<Texture2D>(_TexturePath);
+            Texture = aContentManager.Load<Texture2D>(_Path);
         }
     }
 }

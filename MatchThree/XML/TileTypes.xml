@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<tiles>
+  <tile>
+    <id>1</id>
+    <path>Tiles/FireTile</path>
+    <width>64</width>
+    <height>64</height>
+    <type>Fire</type>
+  </tile>
+  <tile>
+    <id>2</id>
+    <path>Tiles/WaterTile</path>
+    <width>64</width>
+    <height>64</height>
+    <type>Water</type>
+  </tile>
+  <tile>
+    <id>3</id>
+    <path>Tiles/EarthTile</path>
+    <width>64</width>
+    <height>64</height>
+    <type>Earth</type>
+  </tile>
+  <tile>
+    <id>4</id>
+    <path>Tiles/AirTile</path>
+    <width>64</width>
+    <height>64</height>
+    <type>Air</type>
+  </tile>
+  <tile>
+    <id>5</id>
+    <path>Tiles/LightTile</path>
+    <width>64</width>
+    <height>64</height>
+    <type>Light</type>
+  </tile>
+  <tile>
+    <id>6</id>
+    <path>Tiles/DarkTile</path>
+    <width>64</width>
+    <height>64</height>
+    <type>Dark</type>
+  </tile>
+</tiles>

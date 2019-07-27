@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../MatchThreeContent/Boards/SevenSixBoard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../MatchThreeContent/Boards/SevenSixBoard.png;Boards/SevenSixBoard.png
+
 #begin ../../../MatchThreeContent/Tests/BoardTest.png
 /importer:TextureImporter
 /processor:TextureProcessor

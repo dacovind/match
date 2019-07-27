@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<boards>
+  <board>
+    <id>1</id>
+    <path>Boards/SevenSixBoard</path>
+    <width>448</width>
+    <height>384</height>
+    <rows>6</rows>
+    <columns>7</columns>
+  </board>
+</boards>

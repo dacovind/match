@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace MatchThree
 {
@@ -13,13 +15,22 @@ namespace MatchThree
         SpriteBatch spriteBatch;
 
         Tile tile;
-        Board board;
+        Board board, board2;
         ObjectSprite boardSprite;
         ObjectSprite tileSprite;
 
+        XElement boardTypes;
+
+        List<Tile> tileList;
+
         public Match()
         {
-            graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = 1280,
+                PreferredBackBufferHeight = 720
+            };
+
             Content.RootDirectory = "Content";
         }
 
@@ -35,11 +46,15 @@ namespace MatchThree
 
             // TODO: Add your initialization logic here
 
-            boardSprite = new ObjectSprite("Tests/BoardTest", new Point(300));
-            tileSprite = new ObjectSprite("Tests/TileTest", new Point(100));
+            board = XML_Utilities.GetBoardFromID(1);
 
-            board = new Board(boardSprite, new Vector2(50), 1F, new Point(6));
-            tile = new Tile(board, tileSprite, new Vector2(100), 0F);
+            board.FillBoard();
+
+            //tileSprite = new ObjectSprite("Tests/TileTest", new Point(100));
+
+            //boardSprite = new ObjectSprite("Boards/SevenSixBoard", new Point(448, 384));
+            //board2 = new Board(boardSprite, new Vector2(50), 1F, new Point(6));
+            //tile = new Tile(board, tileSprite, new Vector2(100), 0F);
 
             base.Initialize();
         }
@@ -55,7 +70,13 @@ namespace MatchThree
 
             // TODO: use this.Content to load your game content here
             board.LoadContent(Content);
-            tile.LoadContent(Content);     
+
+            foreach(Tile tile in board.Tiles)
+            {
+                tile.LoadContent(Content);
+            }
+
+           // tile.LoadContent(Content);     
         }
 
         /// <summary>
@@ -79,7 +100,10 @@ namespace MatchThree
 
             // TODO: Add your update logic here
 
-            tile.Update(gameTime);
+            foreach (Tile tile in board.Tiles)
+            {
+                tile.Update(gameTime);
+            }
 
 
 
@@ -97,8 +121,14 @@ namespace MatchThree
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
-            spriteBatch.Draw(board.Sprite.Texture, board.Position, null, board.Sprite.TextureColor, 0, board.Origin, board.Scale, SpriteEffects.None, board.Layer);
-            spriteBatch.Draw(tile.Sprite.Texture, tile.Position, null, tile.Sprite.TextureColor, 0, tile.Origin, tile.Scale, SpriteEffects.None, tile.Layer);
+            spriteBatch.Draw(board.Sprite.Texture, board.Position, null, board.Sprite.Tint, 0, board.Origin, board.Scale, SpriteEffects.None, board.Layer);
+            //spriteBatch.Draw(tile.Sprite.Texture, tile.Position, null, tile.Sprite.TextureColor, 0, tile.Origin, tile.Scale, SpriteEffects.None, tile.Layer);
+
+            foreach (Tile tile in board.Tiles)
+            {
+                spriteBatch.Draw(tile.Sprite.Texture, tile.Position, null, tile.Sprite.Tint, 0, tile.Origin, tile.Scale, SpriteEffects.None, tile.Layer);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

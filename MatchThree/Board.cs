@@ -13,11 +13,17 @@ namespace MatchThree
     public class Board : GameObject
     {
         public ObjectSprite Sprite { get; private set; }
-        public override Vector2 Size { get => new Vector2(Sprite.TextureSize.X * Scale.X, Sprite.TextureSize.Y * Scale.Y); }
 
-        public Point SquarePer { get; private set; }
+        public override float Width { get => Sprite.Width * Scale.X; }
+        public override float Height { get => Sprite.Height * Scale.Y; }
 
-        public Vector2 SquareSize { get => new Vector2(Size.X / SquarePer.X, Size.Y / SquarePer.Y); }
+        public int Rows { get; private set; }
+        public int Columns { get; private set; }
+
+        public float CaseWidth { get => Width / Columns; }
+        public float CaseHeight { get => Height / Rows; }
+
+        public List<Tile> Tiles { get; }
 
         public Board()
         {
@@ -25,21 +31,41 @@ namespace MatchThree
 
             Position = Vector2.Zero;
             Layer = 0F;
-            SquarePer = new Point(10);
+
+            Rows = 10;
+            Columns = 10;
+
+            Tiles = new List<Tile>();
         }
 
-        public Board(ObjectSprite aSprite, Vector2 aPosition, float aLayer, Point aSquarePer)
+        public Board(ObjectSprite sprite, Vector2 position, float layer, int rows, int columns)
         {
-            Sprite = aSprite;
+            Sprite = sprite;
 
-            Position = aPosition;
-            Layer = aLayer;
-            SquarePer = aSquarePer;
+            Position = position;
+            Layer = layer;
+
+            Rows = rows;
+            Columns = columns;
+
+            Tiles = new List<Tile>();
         }
 
         public override void LoadContent(ContentManager aContentManager)
         {
             Sprite.SetTexture(aContentManager);
+        }
+
+        public void FillBoard()
+        {
+            for(int r = 0; r < Rows; r++)
+            {
+                for(int c = 0; c < Columns; c++)
+                {
+                    Tile tile = new Tile(XML_Utilities.GetTileSpriteFromID(1), 0.5F, new Point(c,r), this);
+                    Tiles.Add(tile);
+                }
+            }
         }
     }
 }
