@@ -56,16 +56,59 @@ namespace MatchThree
             Sprite.SetTexture(aContentManager);
         }
 
-        public void FillBoard()
+        public void FillBoard(Dictionary<string, int> tileWeights)
         {
-            for(int r = 0; r < Rows; r++)
+            Random tileFactory = new Random(1);
+
+            for (int r = 0; r < Rows; r++)
             {
-                for(int c = 0; c < Columns; c++)
+                for (int c = 0; c < Columns; c++)
                 {
-                    Tile tile = new Tile(XML_Utilities.GetTileSpriteFromID(1), 0.5F, new Point(c,r), this);
+                    Dictionary<string, int> sanitisedTileWeights = new Dictionary<string, int>(tileWeights);
+
+                    string chosenType = null;
+                    int totalValue = 0;
+                    int randomValue = 0;
+
+                    if (Tiles.FirstOrDefault(x => x.CasePosition.X == c - 2 && x.CasePosition.Y == r) != null)
+                        RandomiserUtilities.RemoveWeightIfPossibleTileMatch(ref sanitisedTileWeights,
+                                                                            Tiles.FirstOrDefault(x => x.CasePosition.X == c - 1 && x.CasePosition.Y == r).Type,
+                                                                            Tiles.FirstOrDefault(x => x.CasePosition.X == c - 2 && x.CasePosition.Y == r).Type);
+
+                    if (Tiles.FirstOrDefault(y => y.CasePosition.Y == r - 2 && y.CasePosition.X == c) != null)
+                        RandomiserUtilities.RemoveWeightIfPossibleTileMatch(ref sanitisedTileWeights,
+                                                                            Tiles.FirstOrDefault(y => y.CasePosition.Y == r - 1 && y.CasePosition.X == c).Type,
+                                                                            Tiles.FirstOrDefault(y => y.CasePosition.Y == r - 2 && y.CasePosition.X == c).Type);
+
+                    RandomiserUtilities.RemoveWeightIfBelowOne(ref sanitisedTileWeights);
+
+                    randomValue = tileFactory.Next(1, sanitisedTileWeights.Values.Sum());
+
+
+                    foreach(var weight in sanitisedTileWeights)
+                    {
+                        totalValue += weight.Value;
+
+                        if(totalValue >= randomValue && chosenType == null)
+                        {
+                            chosenType = weight.Key;
+
+                            tileWeights[weight.Key] -= tileWeights.Count - 1;
+                        }
+                        else
+                        {
+                            tileWeights[weight.Key]++;
+                        }
+                    }
+
+                    Tile tile = new Tile(XmlUtilities.GetTileSpriteFromType(chosenType), 0.5F, new Point(c, r), chosenType, this);
                     Tiles.Add(tile);
                 }
             }
+
+
+            //    }
+            //}
         }
     }
 }

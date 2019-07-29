@@ -20,6 +20,8 @@ namespace MatchThree
 
         public bool IsMoving { get; private set; }
 
+        public string Type { get; private set; }
+
 
         public Tile()
         {
@@ -45,13 +47,14 @@ namespace MatchThree
             ActiveBoard = board;
         }
 
-        public Tile(ObjectSprite sprite, float layer, Point casePosition, Board board)
+        public Tile(ObjectSprite sprite, float layer, Point casePosition, string type, Board board)
         {
             Sprite = sprite;
 
             Layer = layer;
 
             CasePosition = casePosition;
+            Type = type;
 
             ActiveBoard = board;
 

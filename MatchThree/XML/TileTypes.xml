@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <tiles>
   <tile>
+    <id>0</id>
+    <path>Tiles/TestTile</path>
+    <width>64</width>
+    <height>64</height>
+    <type>Test</type>
+  </tile>
+  <tile>
     <id>1</id>
     <path>Tiles/FireTile</path>
     <width>64</width>

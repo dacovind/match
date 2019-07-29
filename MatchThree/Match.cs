@@ -14,14 +14,9 @@ namespace MatchThree
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Tile tile;
-        Board board, board2;
-        ObjectSprite boardSprite;
-        ObjectSprite tileSprite;
+        Board board;
 
-        XElement boardTypes;
-
-        List<Tile> tileList;
+        Dictionary<string, int> tileWeights;
 
         public Match()
         {
@@ -46,15 +41,13 @@ namespace MatchThree
 
             // TODO: Add your initialization logic here
 
-            board = XML_Utilities.GetBoardFromID(1);
+            tileWeights = new Dictionary<string, int>();
+            for (int i = 1; i <= 6; i++)
+                tileWeights.Add(XmlUtilities.GetTileTypeFromID(i), 30);
 
-            board.FillBoard();
+            board = XmlUtilities.GetBoardFromID(1);
 
-            //tileSprite = new ObjectSprite("Tests/TileTest", new Point(100));
-
-            //boardSprite = new ObjectSprite("Boards/SevenSixBoard", new Point(448, 384));
-            //board2 = new Board(boardSprite, new Vector2(50), 1F, new Point(6));
-            //tile = new Tile(board, tileSprite, new Vector2(100), 0F);
+            board.FillBoard(tileWeights);
 
             base.Initialize();
         }
