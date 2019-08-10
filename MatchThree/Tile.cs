@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -58,7 +59,7 @@ namespace MatchThree
 
             ActiveBoard = board;
 
-            Position = new Vector2(ActiveBoard.Position.X + (ActiveBoard.CaseWidth  * CasePosition.X) + Origin.X,
+            Position = new Vector2(ActiveBoard.Position.X + (ActiveBoard.CaseWidth * CasePosition.X) + Origin.X,
                                    ActiveBoard.Position.Y + (ActiveBoard.CaseHeight * CasePosition.Y) + Origin.Y);
         }
 
@@ -114,21 +115,79 @@ namespace MatchThree
 
         public override void Update(GameTime gameTime)
         {
-            MouseState state = Mouse.GetState();
+            // Update the current mouse state.
+            CurrentMouseState = Mouse.GetState();
 
-            if(IsLeftClicked(state.Position, state.LeftButton) && IsMoving == false)
-            {
+            if (IsHovered && IsLeftMouseButtonPressed)
                 IsMoving = true;
-            }
-            else if (state.LeftButton == ButtonState.Released && IsMoving)
-            {
+            if (IsLeftMouseButtonReleased)
                 IsMoving = false;
-            }
 
-            if (IsLeftClicked(state.Position, state.LeftButton) || IsMoving)
-            {
-                MoveToPosition(new Vector2(state.Position.X, state.Position.Y));
-            }
+            if ((IsLeftMouseButtonPressed || IsLeftMouseButtonHeld) && IsMoving)
+                MoveToPosition(CurrentMousePosition);
+
+            // The current mouse state becomes the previous mouse state for the next tick.
+            PreviousMouseState = CurrentMouseState;
+
+            //if(IsLeftClicked(state.Position, state.LeftButton) && IsMoving == false)
+            //{
+            //    IsMoving = true;
+            //}
+            //else if (state.LeftButton == ButtonState.Released && IsMoving)
+            //{
+            //    IsMoving = false;
+            //}
+
+            //if (IsLeftClicked(state.Position, state.LeftButton) || IsMoving)
+            //{
+            //    MoveToPosition(new Vector2(state.Position.X, state.Position.Y));
+            //}
+        }
+
+
+        //---------
+
+        public MouseState PreviousMouseState { get; private set; }
+        public MouseState CurrentMouseState { get; private set; }
+
+        public bool IsLeftMouseButtonPressed
+        {
+            get => PreviousMouseState.LeftButton == ButtonState.Released &&
+                   CurrentMouseState.LeftButton == ButtonState.Pressed;
+        }
+
+        public bool IsLeftMouseButtonHeld
+        {
+            get => PreviousMouseState.LeftButton == ButtonState.Pressed &&
+                   CurrentMouseState.LeftButton == ButtonState.Pressed;
+        }
+
+        public bool IsLeftMouseButtonReleased
+        {
+            get => PreviousMouseState.LeftButton == ButtonState.Pressed &&
+                   CurrentMouseState.LeftButton == ButtonState.Released;
+        }
+
+        public Vector2 PreviousMousePosition
+        {
+            get => new Vector2(PreviousMouseState.X, PreviousMouseState.Y);
+        }
+
+        public Vector2 CurrentMousePosition
+        {
+            get => new Vector2(CurrentMouseState.X, CurrentMouseState.Y);
+        }
+
+        public Vector2 MouseMovement
+        {
+            get => CurrentMousePosition - PreviousMousePosition;
+        }
+
+
+        public bool IsHovered
+        {
+            get => (CurrentMousePosition.X >= TruePosition.X && CurrentMousePosition.X < TruePosition.X + Width) &&
+                   (CurrentMousePosition.Y >= TruePosition.Y && CurrentMousePosition.Y < TruePosition.Y + Height);
         }
     }
 }
