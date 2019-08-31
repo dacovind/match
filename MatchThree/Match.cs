@@ -12,10 +12,17 @@ namespace MatchThree
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Tile tile;
+
         public Match()
         {
             graphics = new GraphicsDeviceManager(this);
+
+            graphics.PreferredBackBufferWidth = 640;
+            graphics.PreferredBackBufferHeight = 480;
+
             Content.RootDirectory = "Content";
+            IsMouseVisible = true;
         }
 
         /// <summary>
@@ -27,6 +34,8 @@ namespace MatchThree
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            tile = new Tile();
 
             base.Initialize();
         }
@@ -41,6 +50,8 @@ namespace MatchThree
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            tile.LoadTile(Content);
         }
 
         /// <summary>
@@ -76,6 +87,10 @@ namespace MatchThree
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            spriteBatch.Begin();
+            tile.DrawTile(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
