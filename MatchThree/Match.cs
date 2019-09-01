@@ -74,6 +74,7 @@ namespace MatchThree
                 Exit();
 
             // TODO: Add your update logic here
+            tile.Update(gameTime);
 
             base.Update(gameTime);
         }
